@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
+# http://medialab.di.unipi.it/wiki/Wikipedia_Extractor
+#
 # =============================================================================
 #  Version: 2.2 (December 30, 2012)
 #  Author: Giuseppe Attardi (attardi@di.unipi.it), University of Pisa
@@ -10,6 +12,7 @@
 #	Leonardo Souza (lsouza@amtera.com.br)
 #	Juan Manuel Caicedo (juan@cavorite.com)
 #	Humberto Pereira (begini@gmail.com)
+#	Siegfried-A. Gevatter (siegfried@gevatter.com), 2013
 #
 # =============================================================================
 #  Copyright (c) 2009. Giuseppe Attardi (attardi@di.unipi.it).
@@ -63,7 +66,7 @@ from htmlentitydefs import name2codepoint
 
 ### PARAMS ####################################################################
 
-prefix = 'http://it.wikipedia.org/wiki/'
+prefix = 'http://ca.wikipedia.org/wiki/'
 
 ##
 # Whether to preseve links in output
@@ -221,7 +224,7 @@ for tag in discardElements:
 # Match ignored tags
 ignored_tag_patterns = []
 for tag in ignoredTags:
-    left = re.compile(r'<%s[^/]*>' % tag, re.IGNORECASE)
+    left = re.compile(r'<%s(\s[^/>]*)?>' % tag, re.IGNORECASE)
     right = re.compile(r'</%s>' % tag, re.IGNORECASE)
     ignored_tag_patterns.append((left, right))
 

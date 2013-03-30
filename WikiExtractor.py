@@ -365,9 +365,6 @@ def clean(text):
     # Drop tables
     text = dropNested(text, r'{\|', r'\|}')
 
-    # Drop preformatted
-    text = preformatted.sub('', text)
-
     # Expand links
     text = wikiLink.sub(make_anchor_tag, text)
     # Drop all remaining ones
@@ -427,6 +424,12 @@ def clean(text):
             index += 1
 
     text = text.replace('<<', u'«').replace('>>', u'»')
+
+    #############################################
+
+    # Drop preformatted
+    # This can't be done before since it may remove tags
+    text = preformatted.sub('', text)
 
     # Cleanup text
     text = text.replace('\t', ' ')

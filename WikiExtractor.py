@@ -218,26 +218,26 @@ comment = re.compile(r'<!--.*?-->', re.DOTALL)
 # Match elements to ignore
 discard_element_patterns = []
 for tag in discardElements:
-    pattern = re.compile(r'<%s[^>]*>.*?</%s>' % (tag, tag), re.DOTALL | re.IGNORECASE)
+    pattern = re.compile(r'<\s*%s(\s[^>]*)?>.*?</%s>' % (tag, tag), re.DOTALL | re.IGNORECASE)
     discard_element_patterns.append(pattern)
 
 # Match ignored tags
 ignored_tag_patterns = []
 for tag in ignoredTags:
-    left = re.compile(r'<%s(\s[^/>]*)?>' % tag, re.IGNORECASE)
+    left = re.compile(r'<\s*%s(\s[^>]*)?>' % tag, re.IGNORECASE)
     right = re.compile(r'</%s>' % tag, re.IGNORECASE)
     ignored_tag_patterns.append((left, right))
 
 # Match selfClosing HTML tags
 selfClosing_tag_patterns = []
 for tag in selfClosingTags:
-    pattern = re.compile(r'<%s[^/]*/\s*>' % tag, re.DOTALL | re.IGNORECASE)
+    pattern = re.compile(r'<\s*%s(\s[^/]*)?\s*>' % tag, re.DOTALL | re.IGNORECASE)
     selfClosing_tag_patterns.append(pattern)
 
 # Match HTML placeholder tags
 placeholder_tag_patterns = []
 for tag, repl in placeholder_tags.items():
-    pattern = re.compile(r'<\s*%s(\s*| [^/]+?)>.*?<\s*/\s*%s\s*>' % (tag, tag), re.DOTALL | re.IGNORECASE)
+    pattern = re.compile(r'<\s*%s(\s*| [^>]+?)>.*?<\s*/\s*%s\s*>' % (tag, tag), re.DOTALL | re.IGNORECASE)
     placeholder_tag_patterns.append((pattern, repl))
 
 # Match preformatted lines

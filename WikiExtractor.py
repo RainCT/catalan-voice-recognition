@@ -4,7 +4,7 @@
 # http://medialab.di.unipi.it/wiki/Wikipedia_Extractor
 #
 # =============================================================================
-#  Version: 2.2 (December 30, 2012)
+#  Version: 2.2 (December 30, 2012) + changes
 #  Author: Giuseppe Attardi (attardi@di.unipi.it), University of Pisa
 #	   Antonio Fuschetto (fuschett@di.unipi.it), University of Pisa
 #
@@ -231,7 +231,8 @@ for tag in ignoredTags:
 # Match selfClosing HTML tags
 selfClosing_tag_patterns = []
 for tag in selfClosingTags:
-    pattern = re.compile(r'<\s*%s(\s[^/]*)?\s*>' % tag, re.DOTALL | re.IGNORECASE)
+    # FIXME: removed the "/", can't remember what problem that fixed..
+    pattern = re.compile(r'<\s*%s(\s[^>]*)?\s*>' % tag, re.DOTALL | re.IGNORECASE)
     selfClosing_tag_patterns.append(pattern)
 
 # Match HTML placeholder tags

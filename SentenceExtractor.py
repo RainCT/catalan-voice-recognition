@@ -21,18 +21,6 @@ import glob
 
 MIN_WORDS_IN_LINE = 4
 
-def parse_special(sentence):
-    return sentence
-
-def parse_catalan(sentence):
-    sentence = parse_special(sentence)
-
-    # Apostrophes
-    sentence = re.sub(r"([ldmnt]')([aeiouh])", r'\1 \2', sentence)
-    sentence = re.sub(r"([aeiou])('[nm]|'ls|'hi)", r'\1 \2', sentence)
-
-    return sentence
-
 splitter = re.compile(r'[!\?]|\.[^0-9]')
 extrachars = re.compile(r'[",;:\(\)\-]')
 extratags = re.compile(r'<[^>]*>')
@@ -54,7 +42,6 @@ def parse_file(filename):
             line = extratags.sub(' ', line)
             line = spaces.sub(' ', line)
             elems = filter(None, map(lambda x: x.strip('.'), splitter.split(line)))
-            elems = map(parse_catalan, elems)
             elems = filter(lambda x: len(x.split()) >= MIN_WORDS_IN_LINE, elems)
             accum.extend(elems)
 

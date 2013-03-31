@@ -1,3 +1,7 @@
 A[A-Z]
 Sentences.txt
+SentencesClean.txt
+WordStats.*
 cawiki-*-pages-meta-current.xml
+*.swp
+*.bck

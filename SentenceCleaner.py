@@ -18,20 +18,53 @@
 import re
 import sys
 
+extra_chars = re.compile(r'[",;:\(\)\-—\+«»]')
+spaces = re.compile(r'\s\s+')
+
+numbers = re.compile(r'\b[0-9]*\.?[0-9]+([e^]?[0-9]+)?\b')
+#roman = re.compile(r'\bm{0,4}(cm|cd|d?c{0,3})(xc|xl|l?x{0,3})(ix|iv|v?i{0,3})\b')
+
+apostrophes_pre = re.compile(r"[^ ]+\'\b|\b\'[^ ]+")
 apostrophes_left = re.compile(r"([ldmnt]')([aeiouh])")
 apostrophes_right = re.compile(r"([aeiou])('[nm]|'ls|'hi)")
+apostrophes_bad = re.compile(r"[^ ]+\'[^ ]+")
+
+notcatalan = re.compile(
+    ur'[^ ]*[^ A-Zabcdefghijklmnopqrstuvwxyzçàíúèéòóŀ][^ ]*')
 
 def clean_sentence(sentence):
-    # Apostrophes
-    sentence = re.sub(apostrophes_left, r'\1 \2', sentence)
-    sentence = re.sub(apostrophes_right, r'\1 \2', sentence)
+    # Special characters (currencies, etc.)
+    sentence = sentence.replace(u'€', u'euros')
+    sentence = sentence.replace(u'¢', u'cèntims')
+    sentence = sentence.replace(u'$', u'dòlars')
+    sentence = sentence.replace(u'£', u'lliures')
 
-    return sentence
+    # Non-word characters
+    sentence = extra_chars.sub(' ', sentence)
+    sentence = spaces.sub(' ', sentence)
+
+    # Numbers
+    sentence = numbers.sub('NUMBER', sentence)
+    #sentence = roman.sub('ROMAN', sentence) - FIXME: regex matches empty
+
+    # Apostrophes
+    sentence = sentence.strip("'")
+    sentence = apostrophes_left.sub(r'\1 \2', sentence)
+    sentence = apostrophes_right.sub(r'\1 \2', sentence)
+    sentence = apostrophes_bad.sub('', sentence)
+
+    # Non-Catalan words
+    sentence = sentence.replace(u'l·l', u'ŀl')
+    sentence = notcatalan.sub('GARBAGE', sentence)
+
+    return sentence.strip()
 
 def process_file(filename):
     for line in open(filename):
+        line = line.decode('utf-8')
         line = clean_sentence(line)
-        print line.strip()
+        if line.upper() != line: # is there any word remaining?
+            print line.encode('utf-8')
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:

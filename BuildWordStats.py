@@ -18,7 +18,7 @@
 import sys
 import collections
 
-MIN_COUNT = 3
+MIN_COUNT = 5
 MAX_N_GRAM = 2
 
 def build_lm(infilename, outfile_prefix):

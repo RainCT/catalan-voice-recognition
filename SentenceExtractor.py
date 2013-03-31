@@ -22,7 +22,6 @@ import glob
 MIN_WORDS_IN_LINE = 4
 
 splitter = re.compile(r'[!\?]|\.[^0-9]')
-extrachars = re.compile(r'[",;:\(\)\-]')
 extratags = re.compile(r'<[^>]*>')
 spaces = re.compile(r'\s\s+')
 
@@ -38,7 +37,6 @@ def parse_file(filename):
         else:
             assert accum is not None
             line = line.decode('utf-8').lower()
-            line = extrachars.sub(' ', line)
             line = extratags.sub(' ', line)
             line = spaces.sub(' ', line)
             elems = filter(None, map(lambda x: x.strip('.'), splitter.split(line)))

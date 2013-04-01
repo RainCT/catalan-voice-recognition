@@ -18,6 +18,7 @@
 import os
 import sys
 import glob
+#import mlpy
 import numpy
 from collections import defaultdict
 
@@ -30,13 +31,23 @@ for filename in glob.glob('../voice/numbers/*/*.wav'):
     i = int(os.path.basename(filename).split('_')[0])
     numbers[i].append(wavToFeatures(filename))
 
+#x = numpy.concatenate([numpy.concatenate(ns) for ns in numbers.itervalues()])
+#y = numpy.concatenate([[i]*sum(len(m) for m in ns) for i, ns in numbers.iteritems()])
+#lda = mlpy.LDA()
+#lda.learn(x, y)
+
+#for i in numbers:
+#    numbers[i] = [lda.transform(m) for m in numbers[i]]
+
 def recognize_file(filename):
     query = wavToFeatures(filename)
+#    query = lda.transform(query)
 
     result = []
     sum_scores = 0
     for number, refs in numbers.iteritems():
-        score = sum(DTW(ref, query) for ref in refs)
+        #score = min(DTW(ref, query) for ref in refs)
+        score = sum(DTW(ref, query) for ref in refs) / len(refs)
         result.append((score, number))
         sum_scores += score
 

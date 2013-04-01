@@ -92,11 +92,11 @@ def wavToFeatures(filename, blockSize=2048, shiftSize=1024):
         #feature_vector.extend(list(MFCC(frame - prev_frame)))
         # 2nd derivative
         #feature_vector.extend(list(MFCC(frame - 2*prev_frame + prev2_frame)))
-        feature_vector.append(rootMeanSquare(frame))
         feature_vector.append(zeroCrossingRate(frame))
+        feature_vector.append(rootMeanSquare(frame))
         vectors.append(numpy.array(feature_vector))
         #prev2_frame = prev_frame
         #prev_frame = frame
 
     vectors = numpy.array(vectors)
-    return featureScaleVectors(vectors, vectors.shape[1]-2, vectors.shape[1])
+    return featureScaleVectors(vectors, vectors.shape[1]-1, vectors.shape[1])

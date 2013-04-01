@@ -10,6 +10,7 @@ sentences_clean:
 
 stats:
 	python BuildWordStats.py SentencesClean.txt WordStats
+	python FilterWordStats.py WordStats
 
 clean:
 	rm -rf A[A-Z]

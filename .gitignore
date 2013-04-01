@@ -3,5 +3,6 @@ Sentences.txt
 SentencesClean.txt
 WordStats.*
 cawiki-*-pages-meta-current.xml
+voice
 *.swp
 *.bck

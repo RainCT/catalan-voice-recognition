@@ -10,6 +10,9 @@ sentences_clean:
 
 stats:
 	python BuildWordStats.py SentencesClean.txt WordStats
+	for filename in $(wildcard WordStats.[0-9]-grams); do \
+		sort "$$filename" -o "$$filename"; \
+	done;
 	python FilterWordStats.py WordStats
 
 clean:

@@ -1,0 +1,20 @@
+Catalan Voice Recognition
+-------------------------------------------------
+
+This repository collects several scripts and other resources related
+to developing voice recognition tools for the Catalan language.
+
+
+LANGUAGE_MODEL
+-----------------------------
+
+This directory contains scripts to parse an XML dump of the Catalan
+Wikipedia, extract all article sentences and generate statistics on
+the n-grams found in them.
+
+
+SIMPLE_RECOGNIZER
+-----------------------------
+
+This is a simple DTW speech recognizer, for things such as digits.
+It's been tried as a fun project and shouldn't be taken seriously.

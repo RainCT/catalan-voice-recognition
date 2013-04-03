@@ -43,7 +43,7 @@ def filter_files(prefix, dictionary_file):
                 sum_counts += int(count)
             old_num_words += 1
         print >>indexfile, '%d-grams=%d' % (i, num_words)
-        print >>indexfile, '%d-grams-sum=%d' % (i+1, sum_counts)
+        print >>indexfile, '%d-grams-sum=%d' % (i, sum_counts)
         print '\tWrote %d out of %d n-grams.' % (num_words, old_num_words)
 
 if __name__ == '__main__':

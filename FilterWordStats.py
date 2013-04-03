@@ -23,8 +23,8 @@ def load_dict(filename):
     voc.update(('<s>', '</s>', 'NUMBER', 'GARBAGE'))
     return voc
 
-def process_file(prefix, dictionary):
-    voc = load_dict(dictionary)
+def filter_files(prefix, dictionary_file):
+    voc = load_dict(dictionary_file)
     indexfile = open('%s.filtered.index' % prefix, 'w')
     for i in range(1, 1000):
         filename = '%s.%d-grams' % (prefix, i)
@@ -50,4 +50,4 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         raise SystemExit, 'Usage: %s <file prefix> [<dict file>]' % sys.argv[0]
     dictionary = sys.argv[2] if len(sys.argv) > 2 else '/usr/share/dict/catala'
-    process_file(sys.argv[1], dictionary)
+    filter_files(sys.argv[1], dictionary)

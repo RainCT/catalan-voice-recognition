@@ -19,7 +19,7 @@ import sys
 import collections
 
 MIN_COUNT = 5
-MAX_N_GRAM = 2
+MAX_N_GRAM = 3
 
 def build_lm(infilename, outfile_prefix):
     infile = open(infilename, 'r')
@@ -59,6 +59,6 @@ def build_lm(infilename, outfile_prefix):
         print >>outfile, "%d-grams-sum=%d" % (i+1, totals[i])
 
 if __name__ == '__main__':
-    if len(sys.argv) < 3:
+    if len(sys.argv) != 3:
         raise SystemExit, 'Usage: %s <input file> <output prefix>' % sys.argv[0]
     build_lm(sys.argv[1], sys.argv[2])

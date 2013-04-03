@@ -67,6 +67,6 @@ def process_file(filename):
             print line.encode('utf-8')
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
+    if len(sys.argv) != 2:
         raise SystemExit, 'Usage: %s <filename>' % sys.argv[0]
     process_file(sys.argv[1])
